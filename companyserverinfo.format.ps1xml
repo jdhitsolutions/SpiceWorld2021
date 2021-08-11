@@ -22,13 +22,13 @@ https://github.com/jdhitsolutions/PSScriptTools
             <ScriptBlock>$_.machinename.toUpper()</ScriptBlock>
             <Label>Computername</Label>
         -->
-<PropertyName>Computername</PropertyName>
+        <PropertyName>Computername</PropertyName>
       </GroupBy>
       <TableControl>
         <!--Delete the AutoSize node if you want to use the defined widths.
         <AutoSize />-->
         <TableHeaders>
-         <TableColumnHeader>
+          <TableColumnHeader>
             <Label>OperatingSystem</Label>
             <Width>25</Width>
             <Alignment>left</Alignment>
@@ -51,7 +51,7 @@ https://github.com/jdhitsolutions/PSScriptTools
         </TableHeaders>
         <TableRowEntries>
           <TableRowEntry>
-          <Wrap/>
+            <Wrap />
             <TableColumnItems>
               <!--
             By default the entries use property names, but you can replace them with scriptblocks.
@@ -68,6 +68,131 @@ https://github.com/jdhitsolutions/PSScriptTools
               </TableColumnItem>
               <TableColumnItem>
                 <ScriptBlock>$_.FreeMemoryGB -as [int]</ScriptBlock>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    <View>
+      <!--Created 08/10/2021 10:31:56 by PROSPERO\Jeff-->
+      <Name>process</Name>
+      <ViewSelectedBy>
+        <TypeName>companyServerInfo</TypeName>
+      </ViewSelectedBy>
+      <GroupBy>
+        <!--
+            You can also use a scriptblock to define a custom property name.
+            You must have a Label tag.
+            <ScriptBlock>$_.machinename.toUpper()</ScriptBlock>
+            <Label>Computername</Label>
+
+            Use <Label> to set the displayed value.
+-->
+        <PropertyName>Computername</PropertyName>
+        <Label>Computername</Label>
+      </GroupBy>
+      <TableControl>
+        <!--Delete the AutoSize node if you want to use the defined widths.-->
+        <AutoSize />
+        <!-- This view does not use the table header-->
+        <HideTableHeaders />
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>Processes</Label>
+            <Width>80</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <Wrap />
+            <TableColumnItems>
+              <!--
+            By default the entries use property names, but you can replace them with scriptblocks.
+            <ScriptBlock>$_.foo /1mb -as [int]</ScriptBlock>
+-->
+              <TableColumnItem>
+                <ScriptBlock>
+                ($_.TopProcesses |
+                Format-Table -property ProcessID,Name,HandleCount,WorkingSetSize,CreationDate |
+                Out-String).Trim()
+                </ScriptBlock>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    <View>
+      <!--Created 08/10/2021 10:52:01 by PROSPERO\Jeff-->
+      <Name>os</Name>
+      <ViewSelectedBy>
+        <TypeName>companyServerInfo</TypeName>
+      </ViewSelectedBy>
+      <GroupBy>
+        <!--
+            You can also use a scriptblock to define a custom property name.
+            You must have a Label tag.
+            <ScriptBlock>$_.machinename.toUpper()</ScriptBlock>
+            <Label>Computername</Label>
+
+            Use <Label> to set the displayed value.
+        <PropertyName>OperatingSystem</PropertyName>
+-->
+        <ScriptBlock>
+          <!-- use ANSI to highlight servers-->
+            if ($host.name -match 'console|code') {
+              $os = $_.OperatingSystem
+              Switch -regex ($os) {
+
+              "Server\s2016" {"$([char]27)[38;5;47m$($os)$([char]27)[0m"}
+              "Server\s2019" {"$([char]27)[38;5;200m$($os)$([char]27)[0m"}
+              "Windows\s11" {"$([char]27)[38;5;86m$($os)$([char]27)[0m"}
+              Default {$os}
+              }
+            }
+            else {
+              $_.OperatingSystemshow
+            }
+        </ScriptBlock>
+        <Label>OperatingSystem</Label>
+      </GroupBy>
+      <TableControl>
+        <!--Delete the AutoSize node if you want to use the defined widths.
+        <AutoSize />-->
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>Computername</Label>
+            <Width>15</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>FreeMemGB</Label>
+            <Width>12</Width>
+            <Alignment>right</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>ReportDate</Label>
+            <Width>24</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <!--
+            By default the entries use property names, but you can replace them with scriptblocks.
+            <ScriptBlock>$_.foo /1mb -as [int]</ScriptBlock>
+-->
+              <TableColumnItem>
+                <PropertyName>Computername</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>[math]::Round($_.FreeMemoryGB,4)</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>"{0:d}" -f $_.ReportDate</ScriptBlock>
               </TableColumnItem>
             </TableColumnItems>
           </TableRowEntry>

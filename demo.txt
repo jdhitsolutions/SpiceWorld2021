@@ -1,0 +1,32 @@
+#demo advanced function in PowerShell 7
+# dot source the advanced-functions.ps1 file
+
+help gs -full
+Get-Server
+cls
+#$ss = ConvertTo-SecureString -String P@ssw0rd -AsPlainText -force
+#$cred = [pscredential]::new("company\artd",$ss)
+$cred = Get-Credential company\artd
+
+New-Cimsession dom1,dom2,srv1,srv2,win10 -credential $cred
+Get-Cimsession | Get-Server
+
+## This uses a command from the PSScriptTools module
+Get-FormatView companyServerInfo
+
+#using command aliases interactively is OK
+gs thinkp1 -ProcessCount 10 | ft -view process
+cls
+
+## This uses a command from PSTypeExtensionTools
+Get-PSTypeExtension companyServerInfo
+Get-Server | Get-Member
+cls
+Get-Cimsession | get-server | sort os | ft -view os
+
+#or do something else
+Get-Cimsession | Get-Server | Select Computername,@{Name="FreeC";Expression  = {$_.FreeDiskGB -as [int]}}
+
+cls
+
+# get-cimsession | remove-cimsession

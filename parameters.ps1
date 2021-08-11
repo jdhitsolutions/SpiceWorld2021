@@ -1,4 +1,4 @@
-Return "This is a demo file, not a script to run"
+Return "This is a demo file you should view in your script editor."
 
 Function New-HomeFolder {
     [cmdletbinding()]
@@ -13,7 +13,7 @@ Function New-HomeFolder {
         [alias("server", "cn")]
         [ValidateSet("SRV1", "SRV2", "SRV3")]
         [string]$Computername = "SRV1",
-        [Parameter(Mandatory, HelpMesage = "Enter an alternate credential")]
+        [Parameter(Mandatory, HelpMessage = "Enter an alternate credential")]
         [alias("RunAs")]
         [PSCredential]$Credential
     )
