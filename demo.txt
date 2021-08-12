@@ -21,6 +21,7 @@ cls
 ## This uses a command from PSTypeExtensionTools
 ## https://github.com/jdhitsolutions/PSTypeExtensionTools
 Get-PSTypeExtension companyServerInfo
+
 Get-Server | Get-Member
 cls
 Get-Cimsession | get-server | sort os | ft -view os

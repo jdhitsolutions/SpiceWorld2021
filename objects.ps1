@@ -1,17 +1,17 @@
-Return "This is a demo file, not a script to run"
+Return "This is a demo file you should view in your script editor."
 
 #region Bad examples
 Function Get-Server {
-    Param($Computername = $env:COMPUTERNAME)
+Param($Computername = $env:COMPUTERNAME)
 
-    $os = Get-CimInstance win32_Operatingsystem -CimSession $Computername
-    Write-Host ($Computername + " [" + $os.Caption + "]")
-    $t = Get-Process -ComputerName $Computername | sort workingset -Descending | select -First 5
-    Write-Host "Top processes"
-    $t
-    $c = Get-Volume -DriveLetter C -CimSession $Computername
-    Write-Host ("Free space on C: " + $c.SizeRemaining)
-    Write-Host ("Free memory: " + $os.FreePhysicalMemory)
+$os = Get-CimInstance win32_Operatingsystem -CimSession $Computername
+Write-Host ($Computername + " [" + $os.Caption + "]")
+$t = Get-Process -ComputerName $Computername | sort workingset -Descending | select -First 5
+Write-Host "Top processes"
+$t
+$c = Get-Volume -DriveLetter C -CimSession $Computername
+Write-Host ("Free space on C: " + $c.SizeRemaining)
+Write-Host ("Free memory: " + $os.FreePhysicalMemory)
 }
 Function Get-FolderReport {
     Param($Folder)
@@ -27,7 +27,7 @@ Function Get-FolderReport {
 
 Function Get-Server {
     [cmdletbinding()]
-    [outputtype("companyServerInfo")]
+    [OutputType("companyServerInfo")]
     Param($Computername = $env:COMPUTERNAME)
 
     Write-Host "Getting server info for $Computername" -ForegroundColor Green
