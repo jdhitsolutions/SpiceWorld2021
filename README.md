@@ -10,7 +10,7 @@ The PowerShell script files contain demonstration code. These *are not* files to
 
 The bonus zip file contains a video file. It is content I recorded but was unable to fit into the final conference session due to time constraints. The PDF version of my slides reflects what I recorded not necessarily the final conference recording.
 
-Because of the size of the file, it is not stored as part of the GitHub repository. If you download a zip file of the repository, the bonus zip file won't be properly included. You'll most likely get an error about a corrupt file. Instead, select the `PSScripting-Patterns-Practics-Bonus.zip` file from the listing and download from Git LFS.
+Because of the size of the file, it is not stored as part of the GitHub repository. If you download a zip file of the repository using the code button above, the bonus zip file won't be properly included. You'll most likely get an error about a corrupt fil when you try to open it. Instead, select the `PSScripting-Patterns-Practics-Bonus.zip` file from the listing in this repository and download from Git LFS.
 
 > All of the material in this repository is offered freely for __educational__ purposes only. Nothing should be considered production-ready.
 
